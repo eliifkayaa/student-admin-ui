@@ -1,0 +1,132 @@
+<div class="page-header">
+    <div class="container">
+        <h1>{{header}}</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row p-1">
+        <div class="col-xs-12 row end-xs">
+            <a routerLink="/students" mat-raised-button color="primary">
+                <mat-icon>chevron_left</mat-icon>
+                Geri Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <form #studentDetailsForm ="ngForm">
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Ad</mat-label>
+                            <input matInput [(ngModel)]="student.firstName" name="firstName" required>
+                            <mat-error>Lütfen adınızı giriniz</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-xs-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Soyad</mat-label>
+                            <input matInput [(ngModel)]="student.lastName" name="lastName" required>
+                            <mat-error>Lütfen soyadınızı giriniz</mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Doğum Tarihi</mat-label>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="student.dateOfBirth" name="dateOfBirth" required>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error>Lütfen doğum tarihinizi giriniz</mat-error>
+                          </mat-form-field>
+                          
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput [(ngModel)]="student.email" name="email" required>
+                            <mat-error>Lütfen email giriniz</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-xs-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Telefon</mat-label>
+                            <input matInput [(ngModel)]="student.mobile" name="mobile" required>
+                            <mat-error>Lütfen telefon giriniz</mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Cinsiyet</mat-label>
+                            <!-- <input matInput [(ngModel)]="student.gender.description" name="gender"> -->
+                           <mat-select [(ngModel)]="student.genderId" name="gender" required>
+                            <mat-option *ngFor="let gender of genderList" [value]="gender.id">
+                                {{gender.description}}
+                            </mat-option>
+                           </mat-select>
+                           <mat-error>Lütfen cinsiyetinizi giriniz</mat-error>
+                          </mat-form-field>              
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Adres</mat-label>
+                            <textarea matInput [(ngModel)]="student.address" name="address" required></textarea>
+                            <mat-error>Lütfen adresinizi giriniz</mat-error>
+                          </mat-form-field>              
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Posta Kodu</mat-label>
+                            <textarea matInput [(ngModel)]="student.address" name="address" required></textarea>
+                            <mat-error>Lütfen posta kodunuzu giriniz</mat-error>
+                          </mat-form-field>              
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row between-xs" *ngIf="!isNewStudent">
+                            <button [disabled]="!studentDetailsForm.valid"  color="primary" mat-raised-button (click)="onUpdate()">Kaydet</button>
+                        <button color="warn" mat-raised-button (click)="onDelete()">Sil</button>
+                        </div>
+
+                        <div class="row between-xs" *ngIf="isNewStudent">
+                            <button [disabled]="!studentDetailsForm.valid" color="primary" mat-raised-button (click)="onAdd()">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="row center-xs">
+                <div class="image-container">
+                    <img [src]="displayProfileImageUrl">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 center-xs mt-1">
+                    <input hidden type="file" #imageUpload (change)="uploadImage($event)">
+                    <button mat-raised-button color="primary" (click)="imageUpload.click()">Resmi Düzenle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

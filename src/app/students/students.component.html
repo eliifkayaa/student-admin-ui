@@ -1,0 +1,73 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Öğrenci Listesi</h1>
+    </div>
+</div>
+
+<div class="container mt-1">
+    <div class="row end-xs">
+        <div class="col-xs-12 ">
+            <a mat-raised-button style="margin-right: 10px;" color="primary" routerLink="/students/add">Ekle</a>
+            <input type="text" placeholder="Ara" class="search-input" [(ngModel)]="filterString" (keyup)="flterStudents($event)">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mt-1 mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+            <!-- Position Column -->
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> Ad </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef> Lastname </th>
+                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="dateOfBirth">
+                <th mat-header-cell *matHeaderCellDef> Doğum Tarihi </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateOfBirth | date: 'yyyy-MM-dd'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Mail </th>
+                <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="mobile">
+                <th mat-header-cell *matHeaderCellDef> Telefon </th>
+                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef> Cinsiyet </th>
+                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+            </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                <a [routerLink]="['/students', element.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+    </div>
+</div>
